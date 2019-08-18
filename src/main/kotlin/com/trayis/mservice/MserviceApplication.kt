@@ -11,14 +11,12 @@ import java.util.*
 class MserviceApplication
 
 fun main(args: Array<String>) {
-
     runApplication<MserviceApplication>(*args)
+}
 
-    @Bean
-    fun localeResolver(): LocaleResolver {
-        val localeResolver = AcceptHeaderLocaleResolver()
-        localeResolver.defaultLocale = Locale.US
-        return localeResolver
-    }
-
+@Bean
+fun localeResolver(): LocaleResolver {
+    val localeResolver = AcceptHeaderLocaleResolver()
+    localeResolver.defaultLocale = Locale.US
+    return localeResolver
 }

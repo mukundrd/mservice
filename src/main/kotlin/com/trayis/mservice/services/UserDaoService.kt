@@ -1,34 +1,24 @@
 package com.trayis.mservice.services
 
+import com.trayis.mservice.UserRepository
 import com.trayis.mservice.beans.User
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
 class UserDaoService {
 
-    companion object {
-        val usersList = ArrayList<User>()
+    @Autowired
+    lateinit var userRepo: UserRepository
 
-        private var usersId = 0
-
-        init {
-            usersList.add(User(1, "Amar", System.currentTimeMillis()))
-            usersList.add(User(2, "Akbar", System.currentTimeMillis()))
-            usersList.add(User(3, "Anthony", System.currentTimeMillis()))
-
-            usersId = usersList.size + 1
-        }
-    }
-
-    fun findAll() = usersList
+    fun findAll() = userRepo.findAll()
 
     fun save(user: User): User {
-        user.id = usersId++
-        usersList.add(user)
+        userRepo.save(user)
         return user
     }
 
-    fun findOne(id: Int) = usersList.firstOrNull { id == it.id }
+    fun findOne(id: Int) = userRepo.findById(id.toLong())
 
     fun deleteUser(id: Int): User? {
         findOne(id)?.let {
